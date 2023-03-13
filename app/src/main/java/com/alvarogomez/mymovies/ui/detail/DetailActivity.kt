@@ -2,6 +2,7 @@ package com.alvarogomez.mymovies.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
@@ -36,20 +37,19 @@ class DetailActivity : AppCompatActivity() {
 
     private fun bindDetailInfo(detailInfo: AppCompatTextView, movie: Movie) {
         detailInfo.text = buildSpannedString {
-            bold { append("Original language: ") }
-            appendLine(movie.original_language)
-
-            bold { append("Original title: ")}
-            appendLine(movie.original_title)
-
-            bold { append("Release date: ")}
-            appendLine(movie.release_date)
-
-            bold { append("Popularity: ")}
-            appendLine(movie.popularity.toString())
-
-            bold { append("Vote Average: ")}
-            appendLine(movie.vote_average.toString())
+            appendInfo("Original language: ", movie.original_language)
+            appendInfo("Original title: ", movie.original_title)
+            appendInfo("Release date: ", movie.release_date)
+            appendInfo("Popularity: ", movie.popularity.toString())
+            appendInfo("Vote Average: ", movie.vote_average.toString())
         }
+    }
+
+    private fun SpannableStringBuilder.appendInfo(title: String, value: String) {
+        bold {
+            append("$title: ")
+        }
+        appendLine(value)
+
     }
 }
